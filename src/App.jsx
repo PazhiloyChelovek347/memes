@@ -1,121 +1,133 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useRef, useState } from 'react'
+import { pages } from './content'
+import Page from './components/Page'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentPage, setCurrentPage] = useState(() => {
+    const savedPage = localStorage.getItem('currentPage')
+
+    return savedPage ? Number(savedPage) : 0
+  })
+
+  const [answers, setAnswers] = useState(() => {
+    const savedAnswers = localStorage.getItem('answers')
+
+    return savedAnswers ? JSON.parse(savedAnswers) : {}
+  })
+
+  const [clickedButtons, setClickedButtons] = useState(() => {
+    const savedButtons = localStorage.getItem('clickedButtons')
+    return savedButtons ? JSON.parse(savedButtons) : []
+  })
+
+  const touchStartX = useRef(null)
+
+  const saveProgress = (page, newAnswers) => {
+    localStorage.setItem('currentPage', String(page))
+    localStorage.setItem('answers', JSON.stringify(newAnswers))
+  }
+
+  const handleButtonClick = (buttonId) => {
+    setClickedButtons((current) => {
+      if (current.includes(buttonId)) {
+        return current
+      }
+
+      const updated = [...current, buttonId]
+
+      localStorage.setItem(
+        'clickedButtons',
+        JSON.stringify(updated),
+      )
+
+      return updated
+    })
+  }
+
+  const goNext = () => {
+    if (currentPage < pages.length - 1) {
+      const nextPage = currentPage + 1
+
+      setCurrentPage(nextPage)
+      saveProgress(nextPage, answers)
+    }
+  }
+
+  const goPrevious = () => {
+    if (currentPage > 0) {
+      const previousPage = currentPage - 1
+
+      setCurrentPage(previousPage)
+      saveProgress(previousPage, answers)
+    }
+  }
+
+  const handleAnswer = (contentIndex, optionIndex) => {
+    const newAnswers = {
+      ...answers,
+      [`${pages[currentPage].id}-${contentIndex}`]: optionIndex,
+    }
+
+    setAnswers(newAnswers)
+    saveProgress(currentPage, newAnswers)
+  }
+
+  const handleTouchStart = (event) => {
+    touchStartX.current = event.touches[0].clientX
+  }
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX.current === null) {
+      return
+    }
+
+    const touchEndX = event.changedTouches[0].clientX
+    const distance = touchEndX - touchStartX.current
+
+    if (Math.abs(distance) > 50) {
+      if (distance < 0) {
+        goNext()
+      } else {
+        goPrevious()
+      }
+    }
+
+    touchStartX.current = null
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
+    <main
+      className="app"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      <div className="page-animation" key={pages[currentPage].id}>
+        <Page
+          page={pages[currentPage]}
+          answer={answers}
+          clickedButtons={clickedButtons}
+          onAnswer={handleAnswer}
+          onButtonClick={handleButtonClick}
+        />
+      </div>
+
+      <div className="navigation">
+        <button onClick={goPrevious} disabled={currentPage === 0}>
+          Назад
         </button>
-      </section>
 
-      <div className="ticks"></div>
+        <span>
+          {currentPage + 1} / {pages.length}
+        </span>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        <button
+          onClick={goNext}
+          disabled={currentPage === pages.length - 1}
+        >
+          Вперёд
+        </button>
+      </div>
+    </main>
   )
 }
 
