@@ -17,12 +17,10 @@ body {
     sans-serif;
 
   background:
-    radial-gradient(
-      circle at 50% 0%,
+    radial-gradient(circle at 50% 0%,
       #fff4f6 0%,
       #f7e9ed 45%,
-      #eadde2 100%
-    );
+      #eadde2 100%);
 
   color: #3a3033;
 }
@@ -32,6 +30,22 @@ input,
 textarea,
 select {
   font: inherit;
+}
+
+.button.positive {
+  /* пока просто отдельный класс */
+}
+
+.button.neutral {
+  /* обычная кнопка */
+}
+
+.button.negative {
+  /* отрицательная кнопка */
+}
+
+.button.clicked {
+    opacity: 0.55;
 }
 
 button {
@@ -65,11 +79,9 @@ button {
   padding: 32px 24px;
 
   background:
-    radial-gradient(
-      circle at 20% 10%,
+    radial-gradient(circle at 20% 10%,
       rgba(255, 255, 255, 0.8),
-      transparent 35%
-    ),
+      transparent 35%),
     #fffaf7;
 
   border: 1px solid rgba(110, 80, 90, 0.1);
@@ -121,11 +133,11 @@ button {
   max-width: 36em;
 
   margin: 0 auto;
-  
+
   font-size: 17px;
   line-height: 1.7;
   letter-spacing: 0.01em;
-  
+
   color: #51464a;
 }
 
