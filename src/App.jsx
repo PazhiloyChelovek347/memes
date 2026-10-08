@@ -20,6 +20,12 @@ function App() {
     return savedButtons ? JSON.parse(savedButtons) : []
   })
 
+  const [confirmedPages, setConfirmedPages] = useState(() => {
+    const savedPages = localStorage.getItem('confirmedPages')
+
+    return savedPages ? JSON.parse(savedPages) : []
+  })
+
   const touchStartX = useRef(null)
 
   const saveProgress = (page, newAnswers) => {
@@ -44,11 +50,32 @@ function App() {
     })
   }
 
+  const handleConfirm = (pageId) => {
+    setConfirmedPages((current) => {
+      if (current.includes(pageId)) {
+        return current
+      }
+
+      const updated = [...current, pageId]
+
+      localStorage.setItem(
+        'confirmedPages',
+        JSON.stringify(updated),
+      )
+
+      return updated
+    })
+  }
+
   const canGoNext = () => {
     const page = pages[currentPage]
 
     if (!page.requireConfirmation) {
       return true
+    }
+
+    if (page.type === 'custom') {
+      return confirmedPages.includes(page.id)
     }
 
     const confirmationButton = page.content.find(
@@ -117,6 +144,9 @@ function App() {
     touchStartX.current = null
   }
 
+  const currentPageData = pages[currentPage]
+  const CustomPage = currentPageData.component
+
   return (
     <main
       className="app"
@@ -124,13 +154,20 @@ function App() {
       onTouchEnd={handleTouchEnd}
     >
       <div className="page-animation" key={pages[currentPage].id}>
-        <Page
-          page={pages[currentPage]}
-          answer={answers}
-          clickedButtons={clickedButtons}
-          onAnswer={handleAnswer}
-          onButtonClick={handleButtonClick}
-        />
+        {currentPageData.type === 'custom' ? (
+          <CustomPage
+            page={currentPageData}
+            onConfirm={() => handleConfirm(currentPageData.id)}
+          />
+        ) : (
+          <Page
+            page={currentPageData}
+            answer={answers}
+            clickedButtons={clickedButtons}
+            onAnswer={handleAnswer}
+            onButtonClick={handleButtonClick}
+          />
+        )}
       </div>
 
       <div className="navigation">
@@ -144,7 +181,10 @@ function App() {
 
         <button
           onClick={goNext}
-          disabled={currentPage === pages.length - 1}
+          disabled={
+            currentPage === pages.length - 1 ||
+            !canGoNext()
+          }
         >
           Вперёд
         </button>
