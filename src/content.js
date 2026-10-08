@@ -26,8 +26,15 @@ export const pages = [
 	},
 	{
 		id: 'second',
+		requireConfirmation: true,
 		title: 'Что же щас будет?',
 		content: [
+			{
+				type: 'button',
+				id: 'confirm-1',
+				label: 'Подтвердить',
+				confirm: true,
+			},
 			{
 				type: 'text',
 				value: 'Да ничего страшного, просто хочу как-то тебя повеселить. А может и не только...я сам не знаю что взбредет мне сюда добавить (знаю), начнем?',

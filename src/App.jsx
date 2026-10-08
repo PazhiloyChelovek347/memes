@@ -44,7 +44,29 @@ function App() {
     })
   }
 
+  const canGoNext = () => {
+    const page = pages[currentPage]
+
+    if (!page.requireConfirmation) {
+      return true
+    }
+
+    const confirmationButton = page.content.find(
+      (item) => item.type === 'button' && item.confirm === true
+    )
+
+    if (!confirmationButton?.id) {
+      return false
+    }
+
+    return clickedButtons.includes(confirmationButton.id)
+  }
+
   const goNext = () => {
+    if (!canGoNext()) {
+      return
+    }
+
     if (currentPage < pages.length - 1) {
       const nextPage = currentPage + 1
 

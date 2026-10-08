@@ -24,7 +24,13 @@ function Page({
       return true
     }
 
-    const { clicked, all, oneFrom } = item.visibleWhen
+    const {
+      clicked,
+      all,
+      oneFrom,
+      notClicked,
+      none,
+    } = item.visibleWhen
 
     if (clicked && !clickedButtons.includes(clicked)) {
       return false
@@ -35,6 +41,14 @@ function Page({
     }
 
     if (oneFrom && !oneFrom.some((id) => clickedButtons.includes(id))) {
+      return false
+    }
+
+    if (notClicked && clickedButtons.includes(notClicked)) {
+      return false
+    }
+
+    if (none && none.some((id) => clickedButtons.includes(id))) {
       return false
     }
 
