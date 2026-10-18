@@ -40,7 +40,13 @@ export function validateStory(story, knownTypes) {
 
   for (const page of story.pages) {
     for (const block of page.blocks) {
-      for (const id of conditionIds(block.visibleWhen)) {
+      const conditions = [
+        block.visibleWhen,
+        block.disabledWhen,
+        ...(block.messageVariants ?? []).map((variant) => variant.when),
+      ]
+
+      for (const id of conditions.flatMap(conditionIds)) {
         if (!seen.has(id)) warn(`блок "${block.id}" ссылается на несуществующий id "${id}"`)
       }
     }

@@ -28,3 +28,10 @@ export function conditionIds(condition) {
 
   return [...(clicked ? [clicked] : []), ...all, ...oneFrom, ...conditionIds(not)]
 }
+
+/** Текст ответа кнопки: первый подошедший из messageVariants, иначе обычный message */
+export function pickMessage(block, isActive) {
+  const variant = block.messageVariants?.find((item) => matchesCondition(item.when, isActive))
+
+  return variant ? variant.message : block.message
+}

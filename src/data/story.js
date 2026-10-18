@@ -57,12 +57,20 @@ export const story = {
           label: 'Газ газ сиксевен!',
           message: 'Эээээ...не думал что будет так легко, свайпай вправо',
           variant: 'positive',
+          // если до этого тыкали красные — другой ответ
+          messageVariants: [
+            {
+              when: { oneFrom: ['no-1', 'no-2', 'no-3'] },
+              message: 'Ты просто проверяешь, как это работает, а не правда хочешь 😏 Ладно, свайпай вправо',
+            },
+          ],
         },
         {
           id: 'no-1',
           type: 'button',
           label: 'Нет',
           variant: 'negative',
+          disabledWhen: { clicked: 'sixseven-1' },
         },
         {
           id: 'start-ask-again',
@@ -75,6 +83,7 @@ export const story = {
           type: 'button',
           label: 'Нет (еще и злое)',
           variant: 'negative',
+          disabledWhen: { clicked: 'sixseven-1' },
           visibleWhen: { clicked: 'no-1' },
         },
         {
@@ -88,6 +97,7 @@ export const story = {
           type: 'button',
           label: 'ТОЧНО НЕТ!',
           variant: 'negative',
+          disabledWhen: { clicked: 'sixseven-1' },
           visibleWhen: { all: ['no-1', 'no-2'] },
         },
       ],

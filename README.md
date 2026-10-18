@@ -26,11 +26,24 @@ npm run lint     # проверка кода
 | -------- | ----------------------------------------------------------- |
 | `text`   | `text`                                                      |
 | `image`  | `src`, `alt`, `caption?`                                    |
-| `button` | `label`, `variant?` (neutral/positive/negative), `message?` |
+| `button` | `label`, `variant?` (neutral/positive/negative), `message?`, `disabledWhen?`, `messageVariants?` |
 | `tap`    | `text`, `target`, `message?`, `buttonLabel?`, `doneLabel?`  |
 | `choice` | `question`, `options: [{ label, message? }]`                |
 
 Общие поля любого блока: `visibleWhen` (условие показа: `clicked`, `all`, `oneFrom`, `not`) и `allowNext: true` (дальше нельзя, пока блок не нажат/не пройден).
+
+Поля кнопки `button` для «взаимоисключающих» путей (живой пример — первая страница демо, `?demo`):
+
+- `disabledWhen: <условие>` — когда условие выполнено, кнопка остаётся видимой, но неактивна. Условие такое же, как у `visibleWhen`.
+- `messageVariants: [{ when: <условие>, message: '...' }]` — другой текст ответа после нажатия. Берётся первый подошедший вариант, иначе обычный `message`.
+
+Пример: зелёная кнопка блокирует красные, а красные меняют её ответ.
+
+```js
+{ id: 'yes', type: 'button', label: 'Да', variant: 'positive', message: 'Так просто?',
+  messageVariants: [{ when: { oneFrom: ['no-1', 'no-2'] }, message: 'Ты просто проверяешь, как это работает' }] },
+{ id: 'no-1', type: 'button', label: 'Нет', variant: 'negative', disabledWhen: { clicked: 'yes' } },
+```
 
 Цвета, размеры и скорость анимаций находятся в [`src/styles/tokens.css`](src/styles/tokens.css), тексты кнопок навигации в [`src/data/ui.js`](src/data/ui.js).
 

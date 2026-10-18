@@ -29,7 +29,11 @@
  * @typedef {BaseBlock & { type: 'text', text: string }} TextBlock
  * @typedef {BaseBlock & { type: 'image', src: string, alt: string, caption?: string }} ImageBlock
  * @typedef {'neutral' | 'positive' | 'negative'} ButtonVariant
- * @typedef {BaseBlock & { type: 'button', label: string, variant?: ButtonVariant, message?: string }} ButtonBlock
+ * @typedef {{ when: Condition, message: string }} MessageVariant  текст ответа, если выполнено условие when
+ * @typedef {BaseBlock & {
+ *   type: 'button', label: string, variant?: ButtonVariant, message?: string,
+ *   disabledWhen?: Condition, messageVariants?: MessageVariant[]
+ * }} ButtonBlock
  * @typedef {BaseBlock & { type: 'tap', text: string, target: number, message?: string, buttonLabel?: string, doneLabel?: string }} TapBlock
  * @typedef {{ label: string, message?: string }} ChoiceOption
  * @typedef {BaseBlock & { type: 'choice', question: string, options: ChoiceOption[] }} ChoiceBlock

@@ -57,6 +57,44 @@ export const demoStory = {
           visibleWhen: { clicked: 'demo-positive' },
         },
         {
+          id: 'demo-ex-text',
+          type: 'text',
+          text: 'disabledWhen — кнопка видна, но не нажимается, когда условие выполнено. messageVariants — другой ответ в зависимости от условий. Попробуй сначала только зелёную, потом сбрось прогресс и сначала красные, а потом зелёную.',
+        },
+        {
+          id: 'demo-ex-yes',
+          type: 'button',
+          label: 'Зелёный путь',
+          variant: 'positive',
+          // обычный ответ (если красные не нажимали)
+          message: 'Так просто? Красные кнопки теперь заблокированы.',
+          // а если красные уже нажимали — другой ответ (берётся первый подошедший вариант)
+          messageVariants: [
+            {
+              when: { oneFrom: ['demo-ex-no-1', 'demo-ex-no-2'] },
+              message: 'Ты просто проверяешь, как это работает, а не правда хочешь.',
+            },
+          ],
+        },
+        {
+          id: 'demo-ex-no-1',
+          type: 'button',
+          label: 'Красная 1',
+          variant: 'negative',
+          message: 'Ну ладно...',
+          // после зелёной кнопки — виден, но не нажимается
+          disabledWhen: { clicked: 'demo-ex-yes' },
+        },
+        {
+          id: 'demo-ex-no-2',
+          type: 'button',
+          label: 'Красная 2',
+          variant: 'negative',
+          message: 'Ещё и злое.',
+          visibleWhen: { clicked: 'demo-ex-no-1' },
+          disabledWhen: { clicked: 'demo-ex-yes' },
+        },
+        {
           id: 'demo-tap',
           type: 'tap',
           text: 'Нажми кнопку 10 раз',
