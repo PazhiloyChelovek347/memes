@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Env (секреты никогда не коммитим, шаблон — .env.example)
+.env
+.env.*
+!.env.example
