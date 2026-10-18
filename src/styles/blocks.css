@@ -1,0 +1,157 @@
+/* Блоки рассказа и общие UI-элементы (кнопка, сообщение) */
+
+.text-block {
+  max-width: 36em;
+  margin: 0 auto;
+  font-size: var(--text-md);
+  line-height: var(--line-height-body);
+  letter-spacing: 0.01em;
+  white-space: pre-line;
+  color: var(--color-text);
+}
+
+.image-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+}
+
+.image-block__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-image);
+}
+
+.image-block__caption {
+  text-align: center;
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.choice-block__question {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tap-block__text {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.tap-block__counter {
+  margin: 0;
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Кнопка */
+
+.btn {
+  --from: var(--btn-neutral-from);
+  --to: var(--btn-neutral-to);
+  --border: var(--btn-neutral-border);
+  --text: var(--btn-neutral-text);
+  --hover-from: var(--btn-neutral-hover-from);
+  --hover-to: var(--btn-neutral-hover-to);
+  --hover-border: var(--btn-neutral-hover-border);
+
+  width: 100%;
+  padding: 12px var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--from), var(--to));
+  color: var(--text);
+  font-size: var(--text-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease,
+    opacity var(--duration-fast) ease;
+}
+
+.btn--positive {
+  --from: var(--btn-positive-from);
+  --to: var(--btn-positive-to);
+  --border: var(--btn-positive-border);
+  --text: var(--btn-positive-text);
+  --hover-from: var(--btn-positive-hover-from);
+  --hover-to: var(--btn-positive-hover-to);
+  --hover-border: var(--btn-positive-hover-border);
+}
+
+.btn--negative {
+  --from: var(--btn-negative-from);
+  --to: var(--btn-negative-to);
+  --border: var(--btn-negative-border);
+  --text: var(--btn-negative-text);
+  --hover-from: var(--btn-negative-hover-from);
+  --hover-to: var(--btn-negative-hover-to);
+  --hover-border: var(--btn-negative-hover-border);
+}
+
+.btn--ghost {
+  --from: var(--btn-ghost-from);
+  --to: var(--btn-ghost-to);
+  --border: var(--btn-ghost-border);
+  --text: var(--btn-ghost-text);
+  --hover-from: var(--btn-ghost-hover-from);
+  --hover-to: var(--btn-ghost-hover-to);
+  --hover-border: var(--btn-ghost-hover-border);
+}
+
+@media (hover: hover) {
+  .btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--hover-from), var(--hover-to));
+    border-color: var(--hover-border);
+    box-shadow: var(--shadow-button);
+  }
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(var(--press-scale));
+}
+
+.btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Уже нажатая кнопка / выбранный вариант */
+.btn.is-done {
+  opacity: 0.55;
+}
+
+.btn[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+/* Сообщение-ответ */
+
+.message {
+  margin: 0;
+  padding: 9px 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-message-border);
+  background: linear-gradient(135deg, var(--color-message-from), var(--color-message-to));
+  color: var(--color-text-soft);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  text-align: center;
+  animation: page-in var(--duration-page) var(--ease-soft);
+}
