@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { pages } from './content'
+import { pages } from './content2'
 import Page from './components/Page'
 
 function App() {

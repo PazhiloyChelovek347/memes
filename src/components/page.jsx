@@ -168,6 +168,10 @@ function Page({
         }
 
         if (item.type === 'task') {
+          if (!Array.isArray(item.options)) {
+            return null
+          }
+
           const answerKey = `${page.id}-${index}`
           const selectedOption = answer[answerKey]
 

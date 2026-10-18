@@ -46,12 +46,14 @@ export const pages = [
 				type: 'button',
 				label: 'Газ газ сиксевен!',
 				message: 'Эээээ...не думал что будет так легко, свайпай вправо',
+				variant: 'positive'
 			},
 			{
 				type: 'button',
 				id: 'no-1',
 				label: 'Нет',
 				message: '',
+				variant: 'negative'
 			},
 			{
 				type: 'text',
@@ -68,10 +70,11 @@ export const pages = [
 				visibleWhen: {
 					clicked: 'no-1',
 				},
+				variant: 'negative'
 			},
 			{
 				type: 'text',
-				value: 'Ты точно уверена?',
+				value: 'А может....',
 				visibleWhen: {
 					oneFrom: ['no-2', 'no-3'],
 				},
@@ -79,11 +82,12 @@ export const pages = [
 			{
 				type: 'button',
 				id: 'no-3',
-				label: 'ДА, ТОЧНО НЕТ!',
+				label: 'ТОЧНО НЕТ!',
 				message: '',
 				visibleWhen: {
 					all: ['no-1', 'no-2'],
 				},
+				variant: 'negative'
 			},
 			// {
 			//     type: 'tap',
