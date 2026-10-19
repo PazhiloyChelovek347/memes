@@ -187,6 +187,12 @@ export const story = {
           type: 'text',
           text: 'Но у меня есть то что нужно тебе, и тебе это нравится (ты сама говорила!)',
         },
+        {
+          id: '5-vid-nobrain',
+          type: 'video',
+          src: 'video/nobrain.mp4',
+          caption: 'Это шикарный моментик с мультика, я обожаю эту фразу',
+        }
       ]
     },
   ],

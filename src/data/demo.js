@@ -30,6 +30,12 @@ export const demoStory = {
           caption: 'Подпись под картинкой (поле caption)',
         },
         {
+          id: 'demo-video',
+          type: 'video',
+          src: 'video/nobrain.mp4',
+          caption: 'Видео (поля src, caption?, poster?). Запускается вручную',
+        },
+        {
           id: 'demo-positive',
           type: 'button',
           label: 'Положительная кнопка',

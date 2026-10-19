@@ -15,7 +15,7 @@ npm run lint     # проверка кода
 
 Весь текст лежит в [`src/data/story.js`](src/data/story.js): страницы, блоки, порядок. Компоненты трогать не нужно.
 
-- Картинки клади в `public/images/` и пиши `src: 'images/имя.jpg'`.
+- Картинки клади в `public/images/` и пиши `src: 'images/имя.jpg'`; видео — в `public/video/` (`src: 'video/имя.mp4'`).
 - У каждой страницы и блока есть уникальный `id`. Не меняй его после того, как отправишь ссылку: на нём держатся условия, прогресс и (в будущем) лайки.
 - Шпаргалка со всеми полями: [`src/data/demo.js`](src/data/demo.js) и типы в [`src/types/story.js`](src/types/story.js).
 - В режиме `npm run dev` консоль браузера предупредит об опечатках: повторяющиеся id, неизвестный тип блока, условие на несуществующий id.
@@ -24,6 +24,7 @@ npm run lint     # проверка кода
 | -------- | ----------------------------------------------------------- |
 | `text`   | `text`                                                      |
 | `image`  | `src`, `alt`, `caption?`                                    |
+| `video`  | `src`, `caption?`, `poster?`                                |
 | `button` | `label`, `variant?` (neutral/positive/negative), `message?`, `disabledWhen?`, `messageVariants?` |
 | `tap`    | `text`, `target`, `message?`, `buttonLabel?`, `doneLabel?`  |
 | `choice` | `question`, `options: [{ label, message? }]`                |

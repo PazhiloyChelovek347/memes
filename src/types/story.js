@@ -20,7 +20,7 @@
  *
  * @typedef {object} BaseBlock
  * @property {string} id                 стабильный уникальный id (на него завязаны условия и лайки — не меняй после публикации)
- * @property {string} type               тип блока: text | image | button | tap | choice | <свой тип из реестра>
+ * @property {string} type               тип блока: text | image | video | button | tap | choice | <свой тип из реестра>
  * @property {Condition} [visibleWhen]   показывать блок только при условии
  * @property {boolean} [allowNext]       страница закрыта, пока этот блок не активирован
  */
@@ -28,6 +28,7 @@
 /**
  * @typedef {BaseBlock & { type: 'text', text: string }} TextBlock
  * @typedef {BaseBlock & { type: 'image', src: string, alt: string, caption?: string }} ImageBlock
+ * @typedef {BaseBlock & { type: 'video', src: string, caption?: string, poster?: string }} VideoBlock
  * @typedef {'neutral' | 'positive' | 'negative'} ButtonVariant
  * @typedef {{ when: Condition, message: string }} MessageVariant  текст ответа, если выполнено условие when
  * @typedef {BaseBlock & {

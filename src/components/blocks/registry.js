@@ -4,6 +4,7 @@ import ExampleCustomBlock from './custom/ExampleCustomBlock.jsx'
 import ImageBlock from './ImageBlock.jsx'
 import TapBlock from './TapBlock.jsx'
 import TextBlock from './TextBlock.jsx'
+import VideoBlock from './VideoBlock.jsx'
 
 /**
  * Реестр типов блоков: значение поля `type` в data-файле → компонент.
@@ -12,6 +13,7 @@ import TextBlock from './TextBlock.jsx'
 export const blockRegistry = {
   text: TextBlock,
   image: ImageBlock,
+  video: VideoBlock,
   button: ButtonBlock,
   tap: TapBlock,
   choice: ChoiceBlock,
