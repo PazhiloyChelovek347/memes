@@ -1,17 +1,10 @@
 import { hasSupabase } from '../../config/env.js'
 import { createLocalReactionService } from './localReactionService.js'
+import { createSupabaseReactionService } from './supabaseReactionService.js'
 
-/**
- * Единая точка выбора реализации. Когда появится Supabase:
- * 1) создай supabaseReactionService.js с теми же методами (см. types.js);
- * 2) верни его здесь, если hasSupabase.
- */
+/** Supabase, если заданы переменные окружения, иначе localStorage */
 function createReactionService() {
-  if (hasSupabase && import.meta.env.DEV) {
-    console.info('[reactions] Supabase env задан, но реализация ещё не подключена — используется localStorage')
-  }
-
-  return createLocalReactionService()
+  return hasSupabase ? createSupabaseReactionService() : createLocalReactionService()
 }
 
 export const reactionService = createReactionService()

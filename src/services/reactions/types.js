@@ -9,6 +9,8 @@
  *   все реакции: ключ элемента контента (см. contentKey) → реакция
  * @property {(contentKey: string, reaction: Reaction | null) => Promise<void>} set
  *   поставить реакцию; null — убрать
+ * @property {() => Promise<Array<{device_id: string, content_key: string, reaction: Reaction, device_label: string}>>} [listAll]
+ *   только для админки (есть у Supabase-реализации): реакции всех устройств
  */
 
 export {}

@@ -1,5 +1,5 @@
-import PageCard from '../layout/PageCard.jsx'
-import BlockRenderer from './BlockRenderer.jsx'
+import PageCard from "../layout/PageCard.jsx";
+import BlockRenderer from "./BlockRenderer.jsx";
 
 /** @param {{ page: import('../../types/story.js').Page, titleRef?: import('react').Ref<HTMLHeadingElement> }} props */
 function StoryPage({ page, titleRef }) {
@@ -9,7 +9,7 @@ function StoryPage({ page, titleRef }) {
         <BlockRenderer key={block.id ?? index} block={block} />
       ))}
     </PageCard>
-  )
+  );
 }
 
-export default StoryPage
+export default StoryPage;
